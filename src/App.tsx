@@ -11,10 +11,11 @@ import {
 import Logo from "./assets/logo";
 import { test } from "./utils/Api";
 
-async function App() {
-  const data = await test();
-
-  console.log(data);
+function App() {
+  const getData = async () => {
+    const data = await test();
+    return data;
+  };
 
   return (
     <>
@@ -36,7 +37,7 @@ async function App() {
             <CardContent>
               <Typography variant="h5">Amount</Typography>
             </CardContent>
-            <CardActions>{JSON.stringify(data)}</CardActions>
+            <CardActions>{JSON.stringify(getData())}</CardActions>
           </Card>
         </Box>
       </Container>
