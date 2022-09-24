@@ -9,8 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import Logo from "./assets/logo";
+import { test } from "./utils/Api";
 
-function App() {
+async function App() {
+  const data = await test();
+
+  console.log(data);
+
   return (
     <>
       <AppBar>
@@ -31,7 +36,7 @@ function App() {
             <CardContent>
               <Typography variant="h5">Amount</Typography>
             </CardContent>
-            <CardActions></CardActions>
+            <CardActions>{JSON.stringify(data)}</CardActions>
           </Card>
         </Box>
       </Container>
