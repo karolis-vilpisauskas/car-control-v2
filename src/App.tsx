@@ -2,11 +2,9 @@ import {
   Box,
   Card,
   CardContent,
-  Chip,
   Container,
   Grid,
   ThemeProvider,
-  Typography,
 } from "@mui/material";
 import theme from "./style/Theme";
 import Header from "./components/Header/Header";
