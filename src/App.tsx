@@ -1,47 +1,57 @@
 import {
-  AppBar,
   Box,
   Card,
-  CardActions,
   CardContent,
+  Chip,
   Container,
-  Toolbar,
+  Grid,
+  ThemeProvider,
   Typography,
 } from "@mui/material";
-import Logo from "./assets/logo";
-import { test } from "./utils/Api";
+import theme from "./style/Theme";
+import Header from "./components/Header/Header";
+import CarAction from "./components/CarAction/CarAction";
+import { useDistance } from "./utils/Distance";
+import { useSockets } from "./utils/Sockets";
 
 function App() {
-  const getData = async () => {
-    const data = await test();
-    return data;
-  };
+  const { distance, handleDistanceChange } = useDistance();
+  const { connectionStatus, driveDistance } = useSockets();
 
   return (
-    <>
-      <AppBar>
-        <Toolbar>
-          <Container>
-            <Logo
-              style={{
-                width: 140,
-                height: 70,
-              }}
-            />
-          </Container>
-        </Toolbar>
-      </AppBar>
-      <Container component="main">
-        <Box>
-          <Card style={{ marginTop: 10 }}>
-            <CardContent>
-              <Typography variant="h5">Amount</Typography>
-            </CardContent>
-            <CardActions>{JSON.stringify(getData())}</CardActions>
-          </Card>
-        </Box>
-      </Container>
-    </>
+    <ThemeProvider theme={theme}>
+      <Header connectionStatus={connectionStatus} />
+      <Box
+        component="main"
+        width="calc(100vw - 20px)"
+        height="calc(100vh - 98px)"
+        marginX="auto"
+        marginTop="78px"
+        paddingTop="20px"
+      >
+        <Container>
+          <Grid container>
+            <Grid item sm={4} xs={12}>
+              <Card style={{ marginTop: 10 }}>
+                <CardContent>
+                  <CarAction
+                    textFieldProps={{
+                      label: "Distance to drive (cm)",
+                      value: distance,
+                      onChange: handleDistanceChange,
+                    }}
+                    buttonProps={{
+                      children: "Drive",
+                      onClick: driveDistance(distance),
+                    }}
+                  />
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 }
 
