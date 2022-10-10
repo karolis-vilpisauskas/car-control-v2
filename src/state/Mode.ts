@@ -1,7 +1,7 @@
 import create from "zustand";
 
 export const windowsApiUrl = "192.168.0.150";
-export const onePlusApiUrl = "192.168.45.96";
+export const onePlusApiUrl = "192.168.45.111";
 
 export type Mode = "desktop" | "mobile";
 
