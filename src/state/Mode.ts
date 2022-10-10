@@ -1,7 +1,7 @@
 import create from "zustand";
 
 export const windowsApiUrl = "192.168.0.150";
-export const onePlusApiUrl = "";
+export const onePlusApiUrl = "192.168.45.96";
 
 export type Mode = "desktop" | "mobile";
 
@@ -14,8 +14,8 @@ export interface ModeState {
 }
 
 export const useModeStore = create<ModeState>((set) => ({
-  mode: "desktop",
-  modeApiUrl: windowsApiUrl,
+  mode: "mobile",
+  modeApiUrl: onePlusApiUrl,
   changeMode: (mode: "mobile" | "desktop") => {
     set(() => ({
       mode,
