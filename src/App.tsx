@@ -127,7 +127,7 @@ function App() {
                     <Grid item xs={4}></Grid>
                     <Grid item xs={4} justifyContent="center" display="flex">
                       <IconButton
-                        onClick={sendCommandWithoutValue(Commands.TurnR)}
+                        onClick={sendCommandWithoutValue(Commands.Backwards)}
                         sx={{
                           border: "3px solid black",
                           padding: "0px",
