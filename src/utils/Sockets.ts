@@ -2,8 +2,18 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { useModeStore } from "../state/Mode";
 
-enum Commands {
+export enum Commands {
   Drive = "drive",
+  Stop = "stop",
+  Auto = "auto",
+  Received = "received",
+  Straight = "straight",
+  Backwards = "backwards",
+  TurnL = "turnl",
+  TurnR = "turnr",
+  AutoPidP = "autopidp",
+  AutoPidI = "autopidi",
+  AutoPidD = "autopidd",
 }
 
 const separator = ":";
@@ -44,13 +54,25 @@ export const useSockets = () => {
   );
 
   // Drive distance
-  const driveDistance = useCallback(
-    (distance: string) => () => {
+  const sendCommandWithValue = useCallback(
+    (value: string, command: Commands) => () => {
       const driveCommand = buildCommand({
-        command: Commands.Drive,
-        value: distance,
+        command,
+        value,
       });
       sendMessage(driveCommand);
+    },
+    [buildCommand, sendMessage]
+  );
+
+  // Handle commands without value
+  const sendCommandWithoutValue = useCallback(
+    (command: Commands) => () => {
+      const builtCommand = buildCommand({
+        command,
+        value: "0",
+      });
+      sendMessage(builtCommand);
     },
     [buildCommand, sendMessage]
   );
@@ -59,6 +81,7 @@ export const useSockets = () => {
     sendMessage,
     connectionStatus,
     messageHistory,
-    driveDistance,
+    sendCommandWithValue,
+    sendCommandWithoutValue,
   };
 };
